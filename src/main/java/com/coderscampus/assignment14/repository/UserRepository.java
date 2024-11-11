@@ -5,13 +5,25 @@ import com.coderscampus.assignment14.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserRepository {
-    private List users = new ArrayList<>();
+    private Map<Long, User> users = new HashMap<>();
 
     public void addUser(User user) {
-        users.add(user);
+        users.put(user.getId(), user);
     }
+
+    public User getUser(Long id) {
+        return users.get(id);
+    }
+
+    public boolean userExists(Long id) {
+        return users.containsKey(id);
+    }
+
+
 }

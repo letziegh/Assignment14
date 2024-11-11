@@ -6,7 +6,14 @@ import java.util.List;
 public class Channel {
     private String name;
     private Long id;
-    private List<Messages> messages = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
+
+    public Channel (String name, Long id, List<Message> messages){
+        this.name = name;
+        this.id = id;
+        this.messages = messages;
+
+    }
 
     public String getName() {
         return name;
@@ -24,11 +31,11 @@ public class Channel {
         this.id = id;
     }
 
-    public List<Messages> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Messages> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 
