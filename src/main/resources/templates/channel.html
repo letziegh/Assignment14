@@ -2,19 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Channel</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="/js/channel.js" defer></script>
-
 </head>
-<body>
-<h1 >Channel</h1>
-<div id="chatWindow" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
+<body th:data-channel-id="${channelId}">
+<h1 th:text="'Channel: ' + ${channelName}">Channel: ${channelName}</h1>
 
-</div>
-<label for="message">Message:</label>
+<div id="chatWindow" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;"></div>
 <textarea id="message" placeholder="Enter your message here"></textarea>
 <button id="sendButton">Send</button>
+<br>
+<a href="/welcome">Back to Welcome</a>
 </body>
 </html>
-
-

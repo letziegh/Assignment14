@@ -11,16 +11,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 @Repository
 public class MessageRepository {
-    private final List<Message> messages = new ArrayList<>();
+        private final Map<Long, List<Message>> channelMessages = new HashMap<>();
 
-    public synchronized void addMessage(Message message) {
-        messages.add(message);
+        public synchronized void addMessage(Long channelId, Message message) {
+            channelMessages.computeIfAbsent(channelId, k -> new ArrayList<>()).add(message);
+        }
+
+        public synchronized List<Message> getMessages(Long channelId) {
+            return channelMessages.getOrDefault(channelId, new ArrayList<>());
+        }
     }
 
-    public synchronized List<Message> getAllMessages() {
-        return new ArrayList<>(messages);
-    }
-}
+
 
 
 

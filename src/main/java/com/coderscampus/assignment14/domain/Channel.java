@@ -8,13 +8,15 @@ public class Channel {
     private Long id;
     private List<Message> messages = new ArrayList<>();
 
-    public Channel (String name, Long id, List<Message> messages){
+    public Channel (String name, Long id){
         this.name = name;
         this.id = id;
         this.messages = messages;
 
     }
-
+    public void addMessage(Message message) {
+        this.messages.add(message);
+    }
     public String getName() {
         return name;
     }

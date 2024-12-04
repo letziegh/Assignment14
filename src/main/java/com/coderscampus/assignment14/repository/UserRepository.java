@@ -11,6 +11,7 @@ import java.util.Map;
 
 @Repository
 public class UserRepository {
+
     private Map<Long, User> users = new HashMap<>();
 
     public void addUser(User user) {
@@ -25,5 +26,10 @@ public class UserRepository {
         return users.containsKey(id);
     }
 
-
+    public User findByName(String name) {
+        return users.values().stream()
+                .filter(user -> user.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
+    }
 }
