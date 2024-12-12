@@ -3,12 +3,14 @@ package com.coderscampus.assignment14.service;
 
 import com.coderscampus.assignment14.domain.User;
 import com.coderscampus.assignment14.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User getUserById(Long id) {
         return userRepository.getUser(id);
@@ -20,7 +22,6 @@ public class UserService {
             return existingUser;
         }
 
-        // Create a new user
         User newUser = new User(name, System.currentTimeMillis());
         userRepository.addUser(newUser);
         return newUser;

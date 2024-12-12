@@ -2,22 +2,20 @@ package com.coderscampus.assignment14.web;
 
 import com.coderscampus.assignment14.domain.User;
 import com.coderscampus.assignment14.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @Controller
 public class WelcomeController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public WelcomeController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/login")
     @ResponseBody
@@ -30,13 +28,15 @@ public class WelcomeController {
         User user = userService.registerOrGetUser(name);
         return ResponseEntity.ok(user);
     }
+
     @GetMapping("/welcome")
     public String welcomePage() {
         return "welcome";
     }
 
+
     @GetMapping("/")
     public String redirectToWelcome() {
-        return "redirect:/welcome"; // Redirect root to the welcome page
+        return "redirect:/welcome";
     }
 }

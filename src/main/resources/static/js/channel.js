@@ -1,4 +1,13 @@
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    const username = sessionStorage.getItem("username");
+
+    if (!username) {
+        alert("You must be logged in to access this channel.");
+        window.location.href = "/welcome";
+        return;
+    }
+
+
     const chatWindow = document.getElementById("chatWindow");
     const messageInput = document.getElementById("message");
     const sendButton = document.getElementById("sendButton");
@@ -55,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!response.ok) {
                     throw new Error(`Failed to send message: ${response.statusText}`);
                 }
-                messageInput.value = ""; // Clear the input field
-                loadMessages(); // Refresh messages
+                messageInput.value = "";
+                loadMessages();
             })
             .catch((error) => {
                 console.error("Error sending message:", error);

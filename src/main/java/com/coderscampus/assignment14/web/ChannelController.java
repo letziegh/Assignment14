@@ -1,46 +1,32 @@
 package com.coderscampus.assignment14.web;
 
-
 import com.coderscampus.assignment14.domain.Channel;
 import com.coderscampus.assignment14.domain.Message;
-import com.coderscampus.assignment14.domain.User;
-import com.coderscampus.assignment14.repository.ChannelRepository;
-import com.coderscampus.assignment14.repository.MessageRepository;
 import com.coderscampus.assignment14.service.ChannelService;
-import com.coderscampus.assignment14.service.UserService;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-
-
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequestMapping("/channel")
 public class ChannelController {
-    @Autowired
-    private ChannelService channelService;
 
-    @Autowired
-    private UserService userService;
+private final ChannelService channelService;
 
-//    @GetMapping("/")
-//    public String getDefaultChannelPage() {
-//        // Redirects to the first available channel
-//        return "redirect:/channel/1";
-//    }
+    public ChannelController(ChannelService channelService) {
+        this.channelService = channelService;
+    }
 
     @GetMapping("/{channelId}")
     public String getChannelPage(@PathVariable Long channelId, Model model) {
         Channel channel = channelService.getChannel(channelId);
+        if (channel == null) {
+            return "redirect:/welcome";
+        }
         model.addAttribute("channelId", channelId);
         model.addAttribute("channelName", channel.getName());
         return "channel";

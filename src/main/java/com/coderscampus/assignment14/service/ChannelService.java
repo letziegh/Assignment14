@@ -4,20 +4,21 @@ import com.coderscampus.assignment14.domain.Channel;
 import com.coderscampus.assignment14.domain.Message;
 import com.coderscampus.assignment14.repository.ChannelRepository;
 import com.coderscampus.assignment14.repository.MessageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ChannelService {
-    @Autowired
-    private ChannelRepository channelRepository;
-    @Autowired
-    private MessageRepository messageRepository;
+    private final ChannelRepository channelRepository;
+    private final MessageRepository messageRepository;
 
-    private Long nextChannelId = 2L; // Incremental ID generator for new channels
+    private Long nextChannelId = 2L;
+
+    public ChannelService(ChannelRepository channelRepository, MessageRepository messageRepository) {
+        this.channelRepository = channelRepository;
+        this.messageRepository = messageRepository;
+    }
 
     public Channel getChannel(Long id) {
         return channelRepository.getChannel(id);
@@ -30,17 +31,17 @@ public class ChannelService {
     public boolean addMessageToChannel(Long channelId, Message message) {
         Channel channel = channelRepository.getChannel(channelId);
         if (channel == null) {
-            return false; // Channel does not exist
+            return false;
         }
 
         message.setChannel(channel);
-        messageRepository.addMessage(channelId, message); // Save message to repository
+        messageRepository.addMessage(channelId, message);
         return true;
     }
 
 
     public List<Message> getMessagesForChannel(Long channelId) {
-        return messageRepository.getMessages(channelId); // Retrieve messages from repository
+        return messageRepository.getMessages(channelId);
     }
     public List<Channel> getAllChannels() {
         return new ArrayList<>(channelRepository.getAllChannels());

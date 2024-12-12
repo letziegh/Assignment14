@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const createChannelButton= document.getElementById("createChannelButton");
     const newChannelNameInput = document.getElementById("newChannelName");
 
-    const username = sessionStorage.getItem("username");
+   const username = sessionStorage.getItem("username");
     if (!username) {
         const enteredName = prompt("Please enter your name:");
         if (enteredName && enteredName.trim()) {
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    userNameDisplay.textContent = sessionStorage.getItem("username");
+   userNameDisplay.textContent = sessionStorage.getItem("username");
 
     function createChannel() {
         //   document.getElementById("createChannelButton").addEventListener("click", () => {
@@ -75,6 +75,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     channelItem.appendChild(joinButton);
                     channelList.appendChild(channelItem);
                 });
+                // channelList.innerHTML = ""; // Clear the list
+                // channels.forEach((channel) => {
+                //     const channelItem = document.createElement("li");
+                //     const joinButton = document.createElement("a");
+                //    // joinButton.href = "#";
+                //     joinButton.textContent = `Join ${channel.name}`;
+                //     joinButton.addEventListener("click", (e) => {
+                //         e.preventDefault();
+                //         sessionStorage.setItem("currentChannel", channel.id);
+                //         window.location.href = `/channel/${channel.id}`;
+                //         // Handle the channel change here, navigate to the channel, load messages etc.
+                //     });
+                //     joinButton.className = "btn btn-link"; // Optional styling
+                //     channelItem.appendChild(joinButton);
+                //     channelList.appendChild(channelItem);
+                // });
+
             })
             .catch(error => console.error("Error loading channels:", error));
     }
